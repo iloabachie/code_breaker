@@ -28,7 +28,7 @@ while True:
     start = time.time()  # Sets start time
 
     # Ensures that timer only starts counting when player is ready
-    input("\nPress 'Enter' to start Code Cracking: ")
+    input("\nPress \033[46m'Enter'\033[0m to start Code Cracking: ")
     while True:
         attempt = "attempt" if count == 1 else "attempts"
         if hint_count != 0:
@@ -41,17 +41,18 @@ while True:
             if guess == pc_code:
                 break
             elif 1 in merge:
-                print(f"M A T C H: {attempt}= {count} | time= {time_display(time.time() - start)} | hints left= {hint_count}")
+                print(f"\033[32mM A T C H\033[0m: {attempt}= {count} | time= {time_display(time.time() - start)} | hints left= {hint_count}")
             elif len(guess + pc_code) != len(set(guess + pc_code)):
-                print(f"C L O S E: {attempt}= {count} | time= {time_display(time.time() - start)} | hints left= {hint_count}")
+                print(f"\033[33mC L O S E\033[0m: {attempt}= {count} | time= {time_display(time.time() - start)} | hints left= {hint_count}")
             else:
-                print(f"N O P E: {attempt}= {count} | time= {time_display(time.time() - start)} | hints left= {hint_count}")
+                print(f"\033[31mN O P E\033[0m: {attempt}= {count} | time= {time_display(time.time() - start)} | hints left= {hint_count}")
         elif guess == 'hint' and hint_count != 0:
             hint = input(
                 f"Adds {num_digits // 2 } steps and provides a random digit.  Press 'Enter' to proceed or type no to cancel.").strip().lower()
             if hint == 'no':
                 print("No hint. Continue...")
             else:
+                print('\033[36m')
                 hint_index = random.randint(0, num_digits - 1)
                 print("|", end="")
                 for _ in range(num_digits):
@@ -59,11 +60,12 @@ while True:
                         print("_", end="|")
                     else:
                         print(pc_code[_], end="|")
+                print('\033[0m')
                 hint_count -= 1
                 count += num_digits // 2
                 print(f'\n{attempt}= {count} | time= {time_display(time.time() - start)} | hints left= {hint_count}')
         elif guess == 'hint' and hint_count == 0:
-            print("Sorry, you have used up your hints")
+            print("Sorry, you have no more hints")
         elif guess == 'python' and hint_count == 0:
             hint_count = 3 if num_digits == 5 else 2 if num_digits == 4 else 1
             count += hint_count
@@ -78,7 +80,7 @@ while True:
             printing("Exiting game...")
             break
         else:
-            print(f"Guess Error, guess must contain {num_digits} distinct numbers")
+            print(f"\033[41mGuess Error\033[0m, guess must contain {num_digits} distinct numbers")
 
     if guess == "quit":
         break
@@ -99,18 +101,20 @@ while True:
             records["best_times"][key] = [player, end]
 
         if (high_score == 0 or count < high_score) and (best_time == 0 or end < best_time):
+            print('\033[42m')
             printing(f"MASTER CODE BREAKER!!! {player}, you SMASHED the steps and time records for '{key}'", new_line=False)
             flashtext(f" {player}, you SMASHED the steps and time records for '{key}'", "MASTER CODE BREAKER!!!", index=0, flashes=6)
+            print('\033[0m')
         else:
+            count_diff, time_diff = count - high_score, end - best_time
+            duration = time_display(time_diff, digits=False)
             if high_score == 0 or count < high_score:
                 printing(f"**Congratulations {animate1}{player}!!! You broke the steps record for '{key}'")
                 print(f"But you missed the time record by {duration}")
             if best_time == 0 or end < best_time:
                 printing(f"**Congratulations {animate1}{player}!!! You broke the time record for '{key}'")
                 print(f'But you missed the steps record by {count_diff} steps')
-            if not (high_score == 0 or count < high_score) or (best_time == 0 or end < best_time):
-                count_diff, time_diff = count - high_score, end - best_time
-                duration = time_display(time_diff, digits=False)
+            if not (high_score == 0 or count < high_score) and not (best_time == 0 or end < best_time):
                 print(f"You missed the record for {key} by {count_diff} steps\nYou missed the time record by {duration}"), time.sleep(1.5)
 
         if (high_score == 0 or count < high_score) or (best_time == 0 or end < best_time):
@@ -124,8 +128,9 @@ while True:
     if play_again == 'quit':
         break
     os.system('cls')
-print()
+print('\033[36m')
 printing("Thank you for playing CODE BREAKER!!!")
 print(f'©{datetime.date.today().year}\n')
+print("\033[0m")
 
 

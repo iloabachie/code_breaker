@@ -58,7 +58,7 @@ def time_display(time, digits=True):
 
 def launch():
     os.system('cls')
-    print('\033[36m')
+    print('\033[44m')
     printing("{:>40}".format('Welcome to CODE BREAKER'), delay=0.1, new_line=False, rev=True), time.sleep(0.3)
     flashprint("{:^57}".format('Welcome to CODE BREAKER'), delay=0.3, flashes=3), time.sleep(0.3)
     print("{:^57}".format("*" * len('Welcome to CODE BREAKER')))
@@ -84,7 +84,7 @@ def load_records():
 
 
 def records_display():
-    print()
+    print('\033[36m')
     print("{:>34}".format('**Leader Board**')), time.sleep(0.05)
     print('+----------+' + '---------------------+' * 2), time.sleep(0.05)
     print('| {:^8} | {:^19} | {:^19} |'.format('Game', 'Steps Record', 'Time Record')), time.sleep(0.05)
@@ -97,9 +97,9 @@ def records_display():
             high_score = best_time = 0
         minute, sec = divmod(best_time, 60)
         print('+----------' * 5 + '+'), time.sleep(0.05)
-        print('| {:8} | {:8} |{:9d} | {:8} |{:6d}:{:02d} |'.format(
-            key, name1, high_score, name2, minute, sec)), time.sleep(0.05)
+        print(f'| {key:8} | {name1:8} |{high_score:9d} | {name2:8} |{minute:6d}:{sec:02d} |'), time.sleep(0.05)
     print('+----------' * 5 + '+\n'), time.sleep(0.05)
+    print('\033[0m')
 
 
 def player_capture():
@@ -137,7 +137,7 @@ def reset():
     else:
         print()
         flashprint('Records unchanged', flashes=2)
-    print(), time.sleep(1)
+    time.sleep(1)
 
 
 def code_length():
