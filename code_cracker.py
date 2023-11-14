@@ -24,11 +24,12 @@ while True:
     count = 0  # Sets the counter variable for counting steps
     hint_count = 3 if num_digits == 5 else 2 if num_digits == 4 else 1 if num_digits == 3 else 0
     
-    pc_code = "".join(random.sample([str(_) for _ in range(10)], num_digits))
-    start = time.time()  # Sets start time
+    pc_code = "".join(random.sample([str(_) for _ in range(10)], num_digits))    
 
     # Ensures that timer only starts counting when player is ready
     input("\nPress \033[46m'Enter'\033[0m to start Code Cracking: ")
+    start = time.time()  # Sets start time
+    
     while True:
         attempt = "attempt" if count == 1 else "attempts"
         if hint_count != 0:
@@ -101,7 +102,7 @@ while True:
             records["best_times"][key] = [player, end]
 
         if (high_score == 0 or count < high_score) and (best_time == 0 or end < best_time):
-            print('\033[42m')
+            print('\033[33m')
             printing(f"MASTER CODE BREAKER!!! {player}, you SMASHED the steps and time records for '{key}'", new_line=False)
             flashtext(f" {player}, you SMASHED the steps and time records for '{key}'", "MASTER CODE BREAKER!!!", index=0, flashes=6)
             print('\033[0m')
@@ -128,9 +129,7 @@ while True:
     if play_again == 'quit':
         break
     os.system('cls')
-print('\033[36m')
+print('\033[35m')
 printing("Thank you for playing CODE BREAKER!!!")
-print(f'©{datetime.date.today().year}\n')
+print(f'©{datetime.date.today().year}')
 print("\033[0m")
-
-

@@ -58,7 +58,7 @@ def time_display(time, digits=True):
 
 def launch():
     os.system('cls')
-    print('\033[44m')
+    print('\033[35m')
     printing("{:>40}".format('Welcome to CODE BREAKER'), delay=0.1, new_line=False, rev=True), time.sleep(0.3)
     flashprint("{:^57}".format('Welcome to CODE BREAKER'), delay=0.3, flashes=3), time.sleep(0.3)
     print("{:^57}".format("*" * len('Welcome to CODE BREAKER')))
@@ -137,6 +137,7 @@ def reset():
     else:
         print()
         flashprint('Records unchanged', flashes=2)
+        print()
     time.sleep(1)
 
 
