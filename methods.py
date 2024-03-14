@@ -1,11 +1,16 @@
 import json
 import time
 import os
+import platform
 
 KEYS = ("2-DIGITS", "3-DIGITS", "4-DIGITS", "5-DIGITS")
 player_registered = False
-# num_digits = None
-# records = {}
+
+def clear_terminal():
+    match platform.system():
+        case "Windows": command = 'cls'
+        case _: command = 'clear'
+    os.system(command)
 
 def printing(text, delay=0.07, new_line=True, rev=False):
     if not rev:
@@ -57,7 +62,7 @@ def time_display(time, digits=True):
 
 
 def launch():
-    os.system('cls')
+    clear_terminal()
     print('\033[35m')
     printing("{:>40}".format('Welcome to CODE BREAKER'), delay=0.1, new_line=False, rev=True), time.sleep(0.3)
     flashprint("{:^57}".format('Welcome to CODE BREAKER'), delay=0.3, flashes=3), time.sleep(0.3)

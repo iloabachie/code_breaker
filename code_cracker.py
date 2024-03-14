@@ -128,7 +128,7 @@ while True:
 
     if play_again == 'quit':
         break
-    os.system('cls')
+    clear_terminal()
 print('\033[35m')
 printing("Thank you for playing CODE BREAKER!!!")
 print(f'©{datetime.date.today().year}')
