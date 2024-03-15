@@ -33,9 +33,10 @@ while True:
     while True:
         attempt = "attempt" if count == 1 else "attempts"
         if hint_count != 0:
-            guess = input(f"\nMake a {num_digits}-digit number guess, type hint or type quit: ").strip().lower()
+            guess = input(f"\nMake a {num_digits}-digit number guess or type 'help', 'hint' or 'quit': \033[34m").strip().lower()
         else:
-            guess = input(f"\nMake a {num_digits}-digit number guess or type quit: ").strip().lower()
+            guess = input(f"\nMake a {num_digits}-digit number guess or type quit: \033[34m").strip().lower()
+        print('\033[0m\r')
         if guess.isnumeric() and len(guess) == num_digits and len(set(guess)) == num_digits:
             merge = [len(set(_)) for _ in zip(pc_code, guess)]
             count += 1
@@ -76,6 +77,8 @@ while True:
             flashprint(pc_code, delay=0.5, stay=False, flashes=1)
         elif guess == 'time':
             print(time_display(time.time() - start))
+        elif guess == 'help':
+            help_text()
         elif guess == 'quit':
             print()
             printing("Exiting game...")
@@ -123,7 +126,6 @@ while True:
                 json.dump(records, file, indent=2, sort_keys=True)
 
     records_display()
-
     play_again = input("Press 'Enter' to play again or type 'quit' to exit game...").strip().lower()
 
     if play_again == 'quit':

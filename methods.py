@@ -61,6 +61,15 @@ def time_display(time, digits=True):
         return f'{minute} {minute1} and {second} {second1}'
 
 
+def help_text():
+    print("=" * 57), time.sleep(0.1)
+    print("{:^57}".format("***CLUES***")), time.sleep(0.2)
+    print("MATCH: at least one correct digit in the correct position"), time.sleep(0.2)
+    print("CLOSE: at least one correct digit but in wrong position"), time.sleep(0.2)
+    print("NOPE:  no correct digit in your guess"), time.sleep(0.2)
+    flashprint("=" * 57, flashes=1), time.sleep(0.8)
+    
+    
 def launch():
     clear_terminal()
     print('\033[35m')
@@ -68,12 +77,7 @@ def launch():
     flashprint("{:^57}".format('Welcome to CODE BREAKER'), delay=0.3, flashes=3), time.sleep(0.3)
     print("{:^57}".format("*" * len('Welcome to CODE BREAKER')))
     print('\033[0m\r')
-    print("=" * 57), time.sleep(0.1)
-    print("{:^57}".format("***CLUES***")), time.sleep(0.2)
-    print("MATCH: at least one correct digit in the correct position"), time.sleep(0.2)
-    print("CLOSE: at least one correct digit but in wrong position"), time.sleep(0.2)
-    print("NOPE:  no correct digit in your guess"), time.sleep(0.2)
-    flashprint("=" * 57, flashes=1), time.sleep(1)
+    help_text()
     print()
 
 
@@ -125,9 +129,9 @@ def player_capture():
 
 
 def reset():
-    reset = input("Would you like to reset the Leader board? y or n: ")
+    reset = input("Would you like to reset the Leader board? y/N: ")
     if reset.lower() == 'y':
-        confirm = input("  Are you sure? y or n: ")
+        confirm = input("  Are you sure? y/N: ")
         if confirm == 'y':
             for rkey in KEYS:
                 records["high_scores"][rkey] = ['--', 0]
