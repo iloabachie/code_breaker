@@ -35,7 +35,7 @@ while True:
         if hint_count != 0:
             guess = input(f"\nMake a {num_digits}-digit number guess or type 'help', 'hint' or 'quit': \033[34m").strip().lower()
         else:
-            guess = input(f"\nMake a {num_digits}-digit number guess or type quit: \033[34m").strip().lower()
+            guess = input(f"\nMake a {num_digits}-digit number guess or type 'help', or 'quit': \033[34m").strip().lower()
         print('\033[0m\r')
         if guess.isnumeric() and len(guess) == num_digits and len(set(guess)) == num_digits:
             merge = [len(set(_)) for _ in zip(pc_code, guess)]
