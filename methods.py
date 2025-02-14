@@ -112,21 +112,23 @@ def records_display():
 
 
 def player_capture():
-    global player, player_registered
-    printing('Enter your name: ', new_line=False)  # Captures player name
-    while True:
-        player = input('Enter your name: ').strip()
-        if player.isalpha() and len(player) <= 8:
-            player = player.capitalize()
-            print()
-            animate(f'Welcome to Code Breaker {player.upper()}')
-            player_registered = not player_registered
-            break
-        else:
-            print("Invalid name. Must be maximum 8 characters and contain only letters")
+    global player, player_registered    
+    
+    def name_input():
+        printing('Enter your name: ', new_line=False)  # Captures player name
+        name = input('Enter your name: ').strip()
+        if name.isalpha() and len(name) <= 8:
+            name = name.capitalize()
+            return name
+        print("\n\033[31mInvalid name\033[0m. Must be maximum 8 characters and contain only letters\n")
+        return name_input()
+    
+    player = name_input()
     print()
+    animate(f'Welcome to Code Breaker {player.upper()}')
+    print()
+    player_registered = not player_registered   
     return player, player_registered
-
 
 def reset():
     reset = input("Would you like to reset the Leader board? y/N: ")
@@ -151,14 +153,16 @@ def reset():
 
 
 def code_length():
-    # global key, num_digits
-    while True:
+    def length():
+        printing("Choose the hidden code length: ", new_line=False)
         num_digits = input("Choose the hidden code length: ").strip()
         if num_digits.isnumeric() and 2 <= int(num_digits) <= 5:
             num_digits = int(num_digits)
-            break
-        else:
-            print("Error. Choose a number between 2 and 5 inclusive")
+            return num_digits
+        print("\n\033[31mCode Length Error\033[0m. Choose a number between 2 and 5 inclusive\n")
+        return length()
+    
+    num_digits = length()
     match num_digits:  # Sets the key value for KEY
         case 2: key = KEYS[0]
         case 3: key = KEYS[1]
