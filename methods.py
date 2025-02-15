@@ -84,7 +84,7 @@ def launch():
 def load_records():
     global records
     try:  # Attempts to extract the records dictionary from JSON file
-        with open('xCodeCracker/records.json', 'r') as file:
+        with open('./records.json', 'r') as file:
             records = json.load(file)
     except:  # Sets high score and best time to infinity if record does not exist or JSON file absend
         # Sets the dictionary of the records for first time play
@@ -111,24 +111,25 @@ def records_display():
     print('\033[0m')
 
 
-def player_capture():
+def name_input():
+    printing('Enter your name: ', new_line=False)  # Captures player name
+    name = input('Enter your name: ').strip()
+    if name.isalpha() and len(name) <= 8:
+        name = name.capitalize()
+        return name
+    print("\n\033[31mInvalid name\033[0m. Must be maximum 8 characters and contain only letters\n")
+    return name_input()
+
+
+def player_capture():    
     global player, player_registered    
-    
-    def name_input():
-        printing('Enter your name: ', new_line=False)  # Captures player name
-        name = input('Enter your name: ').strip()
-        if name.isalpha() and len(name) <= 8:
-            name = name.capitalize()
-            return name
-        print("\n\033[31mInvalid name\033[0m. Must be maximum 8 characters and contain only letters\n")
-        return name_input()
-    
     player = name_input()
     print()
     animate(f'Welcome to Code Breaker {player.upper()}')
     print()
     player_registered = not player_registered   
     return player, player_registered
+
 
 def reset():
     reset = input("Would you like to reset the Leader board? y/N: ")
@@ -152,22 +153,23 @@ def reset():
     time.sleep(1)
 
 
-def code_length():
-    def length():
-        printing("Choose the hidden code length: ", new_line=False)
-        num_digits = input("Choose the hidden code length: ").strip()
-        if num_digits.isnumeric() and 2 <= int(num_digits) <= 5:
-            num_digits = int(num_digits)
-            return num_digits
-        print("\n\033[31mCode Length Error\033[0m. Choose a number between 2 and 5 inclusive\n")
-        return length()
-    
+def length():
+    printing("Choose the hidden code length: ", new_line=False)
+    num_digits = input("Choose the hidden code length: ").strip()
+    if num_digits.isnumeric() and 2 <= int(num_digits) <= 5:
+        num_digits = int(num_digits)
+        return num_digits
+    print("\n\033[31mCode Length Error\033[0m. Choose a number between 2 and 5 inclusive\n")
+    return length()
+
+
+def code_length():    
     num_digits = length()
     match num_digits:  # Sets the key value for KEY
         case 2: key = KEYS[0]
         case 3: key = KEYS[1]
         case 4: key = KEYS[2]
-        case 5: key = KEYS[3]
+        case 5: key = KEYS[3]        
     print()
     flashtext("You have chosen  ", f"'{key}'")
     return key, num_digits

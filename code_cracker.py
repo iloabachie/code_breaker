@@ -1,6 +1,6 @@
-from methods import *
 import random
 import datetime
+from methods import *
 
 launch()
 
@@ -122,7 +122,7 @@ while True:
                 print(f"You missed the record for {key} by {count_diff} steps\nYou missed the time record by {duration}"), time.sleep(1.5)
 
         if (high_score == 0 or count < high_score) or (best_time == 0 or end < best_time):
-            with open('xCodeCracker/records.json', 'w') as file:
+            with open('./records.json', 'w') as file:
                 json.dump(records, file, indent=2, sort_keys=True)
 
     records_display()
